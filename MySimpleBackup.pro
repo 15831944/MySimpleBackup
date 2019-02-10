@@ -25,10 +25,17 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         main.cpp \
-        mainwindow.cpp
+        mainwindow.cpp \
+    textfunktionen.cpp \
+    text_zeilenweise.cpp
 
 HEADERS += \
-        mainwindow.h
+        mainwindow.h \
+    mydef.h \
+    todo.h \
+    textfunktionen.h \
+    text_zeilenweise.h
 
 FORMS += \
         mainwindow.ui
+
