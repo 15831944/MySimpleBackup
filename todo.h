@@ -3,6 +3,11 @@
 
 
 /*
+-->void MainWindow::on_actionspeichern_triggered()
+-->void MainWindow::on_actionladen_triggered()
+-->dialog_speichern_laden
+  ->Konfigurationsadten in neuer Klasse kapseln und aus Mainwindow lösen
+
 
 -->Jede Änderung des Backups soll in Historie-Ordner dokumentiert werden
    Hierin für jedes neue Backup ein neuer Unterordner (nach Datum + Zeit)

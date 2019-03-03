@@ -40,7 +40,7 @@
      <string>Start</string>
     </property>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -130,11 +130,29 @@
     </property>
     <addaction name="actionInfo"/>
    </widget>
+   <widget class="QMenu" name="menuKonfiguration">
+    <property name="title">
+     <string>Konfiguration</string>
+    </property>
+    <addaction name="actionspeichern"/>
+    <addaction name="actionladen"/>
+   </widget>
    <addaction name="menuInfo"/>
+   <addaction name="menuKonfiguration"/>
   </widget>
   <action name="actionInfo">
    <property name="text">
     <string>Info</string>
+   </property>
+  </action>
+  <action name="actionspeichern">
+   <property name="text">
+    <string>speichern</string>
+   </property>
+  </action>
+  <action name="actionladen">
+   <property name="text">
+    <string>laden</string>
    </property>
   </action>
  </widget>

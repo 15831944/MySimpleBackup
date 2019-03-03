@@ -10,7 +10,9 @@ MainWindow::MainWindow(QWidget *parent) :
     ziel_root  += QDir::separator();
     ziel_root  += "MySimpleBackup";
     ziel        = OHNE_ANGABE;
+    q.clear();
     setup();
+    on_actionInfo_triggered();
 }
 
 MainWindow::~MainWindow()
@@ -58,6 +60,7 @@ void MainWindow::setup()
             QMessageBox::warning(this,"Fehler","Fehler beim Dateizugriff!",QMessageBox::Ok);
         }else
         {
+            q.clear();
             while(!file.atEnd())
             {
                 QString zeile = QLatin1String(  file.readLine()  );
@@ -69,8 +72,12 @@ void MainWindow::setup()
                 {
                     ziel = text_mitte(zeile, "ziel:", "\n");
                     ui->lineEdit_ziel->setText(ziel);
+                }else if(zeile.contains("quelle:"))
+                {
+                    q.add(text_mitte(zeile, "quelle:", "\n"));
                 }
             }
+            update_quellenlistwidget();
         }
         file.close();
     }
@@ -95,6 +102,14 @@ void MainWindow::schreibe_ini()
         file.write("ziel:");
         file.write(ziel.toUtf8());
         file.write("\n");
+
+        text_zeilenweise tz = q.get();
+        for(uint i=1; i<=tz.zeilenanzahl() ;i++)
+        {
+            file.write("quelle:");
+            file.write(tz.zeile(i).toUtf8());
+            file.write("\n");
+        }
     }
     file.close();
 }
@@ -162,10 +177,72 @@ void MainWindow::on_lineEdit_ziel_root_editingFinished()
 }
 
 //------------------------------------------------------------Quellen:
+void MainWindow::update_quellenlistwidget()
+{
+    ui->listWidget_quell->clear();
+    text_zeilenweise tz = q.get();
+    for(uint i = 1; i<=tz.zeilenanzahl() ;i++)
+    {
+        ui->listWidget_quell->addItem(tz.zeile(i));
+    }
+}
+
+void MainWindow::on_pushButton_quell_add_clicked()
+{
+    QString tmp = QFileDialog::getExistingDirectory(this, tr("Quellordner"), QDir::homePath());
+    if(!tmp.isEmpty())
+    {
+        if(q.add(tmp))
+        {
+            update_quellenlistwidget();
+            schreibe_ini();
+        }else
+        {
+            QMessageBox mb;
+            mb.setText("Quelle oder Teilpfad der Quelle bereits eingetragen!");
+            mb.exec();
+        }
+    }
+}
+
+void MainWindow::on_pushButton_quell_del_clicked()
+{
+    if(ui->listWidget_quell->currentIndex().isValid() &&\
+       ui->listWidget_quell->currentItem()->isSelected())
+    {
+        QString tmp = q.get().zeile(ui->listWidget_quell->currentRow()+1);
+        if(q.del(tmp))
+        {
+            update_quellenlistwidget();
+            schreibe_ini();
+        }else
+        {
+            QMessageBox mb;
+            mb.setText("Quelle konnte nicht entfernt werden!");
+            mb.exec();
+        }
+    }
+}
 
 //------------------------------------------------------------
 
 void MainWindow::on_actionInfo_triggered()
 {
     info();
+}
+
+
+
+void MainWindow::on_actionspeichern_triggered()
+{
+    Dialog_seichern_laden d;
+    d.set_mode_save();
+    d.exec();
+}
+
+void MainWindow::on_actionladen_triggered()
+{
+    Dialog_seichern_laden d;
+    d.set_mode_load();
+    d.exec();;
 }
