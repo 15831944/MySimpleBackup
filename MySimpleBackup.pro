@@ -27,15 +27,20 @@ SOURCES += \
         main.cpp \
         mainwindow.cpp \
     textfunktionen.cpp \
-    text_zeilenweise.cpp
+    text_zeilenweise.cpp \
+    quellen.cpp \
+    dialog_seichern_laden.cpp
 
 HEADERS += \
         mainwindow.h \
     mydef.h \
     todo.h \
     textfunktionen.h \
-    text_zeilenweise.h
+    text_zeilenweise.h \
+    quellen.h \
+    dialog_seichern_laden.h
 
 FORMS += \
-        mainwindow.ui
+        mainwindow.ui \
+    dialog_seichern_laden.ui
 
