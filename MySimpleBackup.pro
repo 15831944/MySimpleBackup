@@ -29,7 +29,8 @@ SOURCES += \
     textfunktionen.cpp \
     text_zeilenweise.cpp \
     quellen.cpp \
-    dialog_seichern_laden.cpp
+    dialog_seichern_laden.cpp \
+    config.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -38,9 +39,11 @@ HEADERS += \
     textfunktionen.h \
     text_zeilenweise.h \
     quellen.h \
-    dialog_seichern_laden.h
+    dialog_seichern_laden.h \
+    config.h
 
 FORMS += \
         mainwindow.ui \
-    dialog_seichern_laden.ui
+    dialog_seichern_laden.ui \
+    config.ui
 
