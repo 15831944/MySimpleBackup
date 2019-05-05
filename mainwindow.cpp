@@ -24,6 +24,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     setup();
     on_actionInfo_triggered();
+    update_windowtitle();
 }
 
 MainWindow::~MainWindow()
@@ -114,15 +115,21 @@ void MainWindow::on_pushButton_ziel_root_clicked()
 {
     konfig.set_ziel_root();
 }
-
 void MainWindow::on_pushButton_ziel_clicked()
 {
     konfig.set_ziel();
 }
-
 void MainWindow::on_lineEdit_ziel_root_editingFinished()
 {
     konfig.set_ziel_root(ui->lineEdit_ziel_root->text());
+}
+void MainWindow::update_lineedit_ziel(QString msg)
+{
+    ui->lineEdit_ziel->setText(msg);
+}
+void MainWindow::update_lineedit_ziel_root(QString msg)
+{
+    ui->lineEdit_ziel_root->setText(msg);
 }
 
 //------------------------------------------------------------Quellen:
@@ -133,14 +140,6 @@ void MainWindow::update_quellenlistwidget(text_zeilenweise quellen)
     {
         ui->listWidget_quell->addItem(quellen.zeile(i));
     }
-}
-void MainWindow::update_lineedit_ziel(QString msg)
-{
-    ui->lineEdit_ziel->setText(msg);
-}
-void MainWindow::update_lineedit_ziel_root(QString msg)
-{
-    ui->lineEdit_ziel_root->setText(msg);
 }
 void MainWindow::on_pushButton_quell_add_clicked()
 {
@@ -167,6 +166,8 @@ void MainWindow::on_actionspeichern_triggered()
 {
     Dialog_seichern_laden d;
     d.set_mode_save();
+    d.set_config(&konfig);
+    connect(&d, SIGNAL(signal_saved()), this, SLOT(slot_konfigfile_changed()));
     d.exec();
 }
 
@@ -174,5 +175,24 @@ void MainWindow::on_actionladen_triggered()
 {
     Dialog_seichern_laden d;
     d.set_mode_load();
+    d.set_config(&konfig);
+    connect(&d, SIGNAL(signal_changed()), this, SLOT(slot_konfigfile_changed()));
     d.exec();;
+}
+
+void MainWindow::update_windowtitle()
+{
+    QString title = "MySimpleBackup (";
+    title += konfig.get_configname();
+    title += ")";
+    this->setWindowTitle(title);
+}
+
+void MainWindow::slot_konfigfile_changed()
+{
+    konfig_aktuell  = folder;
+    konfig_aktuell += QDir::separator();
+    konfig_aktuell += konfig.get_configname();
+    schreibe_ini();
+    update_windowtitle();
 }

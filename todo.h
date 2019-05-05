@@ -3,7 +3,6 @@
 
 
 /*
--->void MainWindow::on_actionspeichern_triggered()
 -->void MainWindow::on_actionladen_triggered()
 -->dialog_speichern_laden
 

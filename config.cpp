@@ -25,6 +25,7 @@ void config::set_inifilepath(QString path)
     write_ini();
     inifilepath = path;
     read_ini();
+    emit signal_configname_changed();
 }
 
 void config::read_ini()
@@ -182,3 +183,49 @@ text_zeilenweise config::get_quellen()
 {
     return q.get();
 }
+
+void config::rename(QString newname)
+{
+    write_ini();
+    QString name = get_configfolderpath();
+    name += QDir::separator();
+    name += newname;
+    if(!newname.contains(".conf"))
+    {
+        name += ".conf";
+    }
+    inifilepath = name;
+    write_ini();
+    emit signal_configname_changed();
+}
+
+QString config::get_configfolderpath()
+{
+    QFileInfo info(inifilepath);
+    return info.absolutePath();
+}
+
+QString config::get_configname()
+{
+    QFileInfo info(inifilepath);
+    return info.fileName();
+}
+
+void config::set_inifile(QString name)
+{
+    QString path = get_configfolderpath();
+    path += QDir::separator();
+    path += name;
+    if(!path.contains(".conf"))
+    {
+        path += ".conf";
+    }
+    set_inifilepath(path);
+}
+
+
+
+
+
+
+

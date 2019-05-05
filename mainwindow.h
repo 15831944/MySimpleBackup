@@ -27,6 +27,8 @@ public slots:
     void update_quellenlistwidget(text_zeilenweise quellen);
     void update_lineedit_ziel(QString msg);
     void update_lineedit_ziel_root(QString msg);
+    void update_windowtitle();
+    void slot_konfigfile_changed();
 
 private slots:
     void on_pushButton_ziel_root_clicked();
@@ -48,6 +50,7 @@ private:
     void setup();
     void schreibe_ini();
     void info();
+
 
 
 };
