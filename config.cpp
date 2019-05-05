@@ -22,7 +22,9 @@ config::~config()
 
 void config::set_inifilepath(QString path)
 {
+    write_ini();
     inifilepath = path;
+    read_ini();
 }
 
 void config::read_ini()

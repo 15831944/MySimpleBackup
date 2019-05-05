@@ -13,10 +13,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ini += QDir::separator();
     ini += "MySimpleBackup_ini.txt";
     QDir d(folder);
-    d.mkpath(folder);
-
-    setup();
-    on_actionInfo_triggered();
+    d.mkpath(folder);    
 
     connect(&konfig, SIGNAL(signal_update_quellen(text_zeilenweise)),\
             this, SLOT(update_quellenlistwidget(text_zeilenweise)));
@@ -24,6 +21,9 @@ MainWindow::MainWindow(QWidget *parent) :
             this, SLOT(update_lineedit_ziel(QString)));
     connect(&konfig, SIGNAL(signal_update_ziel_root(QString)),\
             this, SLOT(update_lineedit_ziel_root(QString)));
+
+    setup();
+    on_actionInfo_triggered();
 }
 
 MainWindow::~MainWindow()
@@ -58,7 +58,7 @@ void MainWindow::setup()
 
             konfig_aktuell  = folder;
             konfig_aktuell += QDir::separator();
-            konfig_aktuell += "default";
+            konfig_aktuell += "default.conf";
             schreibe_ini();
         }
         file.close();
@@ -81,7 +81,7 @@ void MainWindow::setup()
         }
         file.close();
     }
-
+    konfig.set_inifilepath(konfig_aktuell);
 }
 
 void MainWindow::schreibe_ini()
