@@ -223,6 +223,14 @@ void config::set_inifile(QString name)
     set_inifilepath(path);
 }
 
+QString config::get_ziel_komplett()
+{
+    QString msg;
+    msg = ziel_root;
+    msg += QDir::separator();
+    msg += ziel;
+    return msg;
+}
 
 
 

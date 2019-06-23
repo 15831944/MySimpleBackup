@@ -10,6 +10,7 @@
 #include "textfunktionen.h"
 #include "config.h"
 #include "dialog_seichern_laden.h"
+#include "backup.h"
 
 namespace Ui {
 class MainWindow;
@@ -39,6 +40,7 @@ private slots:
     void on_pushButton_quell_del_clicked();
     void on_actionspeichern_triggered();
     void on_actionladen_triggered();
+    void on_pushButton_start_clicked();
 
 private:
     Ui::MainWindow *ui;
@@ -46,6 +48,7 @@ private:
     QString ini;//Pfad zum globalen ini-file
     config konfig;//Klasse für Verwaltung einer Konfiguration
     QString konfig_aktuell;//zuletzt verwendetet/geladene Konfiguration
+    backup b;
 
     void setup();
     void schreibe_ini();

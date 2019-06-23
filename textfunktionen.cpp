@@ -68,3 +68,18 @@ QString text_mitte(const QString text, const QString textDavor, const QString te
     return tmp;
 }
 
+uint tz_contains(text_zeilenweise tz, QString s)
+{
+    //Sucht nach der ersten Zeile die "s" enthällt
+    uint index = 0;
+    for(uint i=1; i<=tz.zeilenanzahl() ;i++)
+    {
+        if(tz.zeile(i) == s)
+        {
+            index = i;
+            break;
+        }
+    }
+    return index;
+}
+

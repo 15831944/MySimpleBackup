@@ -30,6 +30,7 @@ public:
     void rename(QString newname);
     QString get_configfolderpath();
     QString get_configname();
+    QString get_ziel_komplett();
 
 private:
     Ui::config *ui;

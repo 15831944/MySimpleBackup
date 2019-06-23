@@ -196,3 +196,10 @@ void MainWindow::slot_konfigfile_changed()
     schreibe_ini();
     update_windowtitle();
 }
+
+void MainWindow::on_pushButton_start_clicked()
+{
+    b.set_ziel(konfig.get_ziel_komplett());
+    b.set_quellen(konfig.get_quellen());
+    b.start();
+}

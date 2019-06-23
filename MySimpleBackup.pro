@@ -30,7 +30,10 @@ SOURCES += \
     text_zeilenweise.cpp \
     quellen.cpp \
     dialog_seichern_laden.cpp \
-    config.cpp
+    config.cpp \
+    backup.cpp \
+    ordner.cpp \
+    umwandeln.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -40,7 +43,10 @@ HEADERS += \
     text_zeilenweise.h \
     quellen.h \
     dialog_seichern_laden.h \
-    config.h
+    config.h \
+    backup.h \
+    ordner.h \
+    umwandeln.h
 
 FORMS += \
         mainwindow.ui \
